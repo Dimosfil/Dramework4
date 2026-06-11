@@ -239,6 +239,20 @@ or:
 - Update progress as meaningful steps complete.
 - Keep plans concise. Do not store full diffs, large logs, generated outputs,
   secrets, credentials, or private production data.
+- For non-trivial features, keep a durable feature document in
+  `tools/project-memory/` using `feature-workflow-contract.template.md` or a
+  similarly scoped feature plan.
+- Record the feature idea, functional description, workflow contract,
+  implementation plan, sprint breakdown, tasks, definitions of done, and
+  verification. Tasks say what to change; the workflow contract says what
+  user-visible behavior must remain true.
+- Before changing a feature with a recorded contract or plan, read it and
+  preserve the agreed sequence, branches, loading/empty/error states, blocking
+  versus background work, cancellation/retry behavior, data freshness,
+  observability, and verification guarantees unless the user explicitly changes
+  the agreement.
+- If implementation changes the agreed workflow, update the contract in the
+  same scoped change and report the behavior change.
 
 ## Shared Instruction Updates
 

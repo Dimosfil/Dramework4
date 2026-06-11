@@ -2,9 +2,12 @@
 
 ## Project
 
-Dramework4 is a Unity `2022.3` runtime framework/package for HappyCoder
+Dramework4 is a Unity `2022.3+` runtime framework/package for HappyCoder
 projects. It provides dependency injection, lifecycle orchestration, messaging,
 storage/config helpers, and testing utilities.
+
+The project currently opens and works on Unity `2022.3.62f2`; treat that
+version as supported too.
 
 Primary package manifest:
 
@@ -81,6 +84,20 @@ or update a concise checklist in `tools/project-memory/pending-tasks.md` or a
 dedicated task plan in `tools/project-memory/` before editing code. Keep plans
 task-relevant and update progress as meaningful steps complete.
 
+For non-trivial features, keep a durable project-local feature document in
+`tools/project-memory/` using `feature-workflow-contract.template.md` or a
+similarly scoped feature plan. Record the feature idea, functional description,
+workflow contract, implementation plan, sprint breakdown, tasks, definitions of
+done, and verification. Tasks describe what to change; the workflow contract
+describes the user-visible behavior that must remain true.
+
+Before changing a feature with a recorded contract or plan, read it and preserve
+its agreed entry points, required order, branches, loading/empty/error states,
+blocking versus background work, cancellation/retry behavior, data freshness,
+observability, and verification guarantees unless the user explicitly changes
+the agreement. If implementation changes the agreed workflow, update the
+contract in the same scoped change and report the behavior change.
+
 When this project reveals a reusable improvement to agent instructions,
 workflows, templates, or checklists, write a dated recommendation to the shared
 instruction library's `updates/` folder if it is available. If it is not
@@ -115,7 +132,7 @@ Install dependencies:
 Run:
 
 ```powershell
-# Open the project in Unity 2022.3.x and enter Play Mode from the editor.
+# Open the project in Unity 2022.3+ and enter Play Mode from the editor.
 ```
 
 Test:

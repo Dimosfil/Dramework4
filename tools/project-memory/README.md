@@ -9,6 +9,7 @@ Use it for verified findings that should survive chat resets:
 - important decisions
 - known pitfalls
 - local workflows
+- feature workflow contracts and plans
 - dependency maps
 - reusable agent experience that may improve `gi`
 
@@ -80,6 +81,9 @@ Markdown as the concise reviewable export.
 ## Suggested Files
 
 - `pending-tasks.md`: active project-wide plans and multi-step work.
+- `feature-workflow-contract.template.md`: template for durable feature
+  behavior contracts, implementation plans, sprints, tasks, definitions of done,
+  and verification.
 - `STUDY_PLAN.md`: roadmap for understanding the project.
 - `git-preferences.json`: commit-message language preferences.
 - `system-preferences.json`: agent user-facing working language preferences.
@@ -104,6 +108,18 @@ Include:
 Update progress as meaningful steps complete. Keep plans task-relevant and avoid
 full diffs, large logs, generated outputs, secrets, credentials, or private
 production data.
+
+## Feature Workflow Contracts
+
+For non-trivial features, keep a durable feature document in this folder. Use
+`feature-workflow-contract.template.md` when a feature needs a recorded behavior
+contract, implementation plan, sprint breakdown, task breakdown, definitions of
+done, and verification plan.
+
+Before changing a feature with a recorded contract, read the feature document
+and preserve its user-visible guarantees unless the user explicitly changes the
+agreement. If a scoped implementation changes the workflow, update the contract
+in the same change.
 
 ## Rule
 

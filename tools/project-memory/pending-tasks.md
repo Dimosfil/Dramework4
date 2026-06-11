@@ -56,22 +56,55 @@ Verification:
 - [x] Read README after patch.
 - [x] Run targeted git diff/stat.
 
-### TODO Task Name
+### Prepare UnityPackage release workflow
 
-Goal: TODO
+Goal: define and prepare a repeatable `.unitypackage` release workflow for
+Dramework4 on Unity `2022.3+`, including the currently working `2022.3.62f2`
+project version.
 
 Planned changes:
 
-- [ ] TODO
+- [x] Decide package artifact format and naming convention.
+- [x] Confirm package version source and release version update rules.
+- [x] Define included paths and excluded local/generated/private paths.
+- [x] Create or document the package export/build steps.
+- [x] Add release verification steps for Unity import, compilation, and EditMode tests.
+- [x] Document the final release checklist.
 
 Execution order:
 
-- [ ] TODO
+- [x] Read `Assets/IG/package.json`, package layout, README, and relevant Unity metadata.
+- [x] Decide whether the primary artifact is `.unitypackage`, UPM folder/archive, or both.
+- [x] Draft the package contents manifest and exclusion list.
+- [x] Define the export command/manual Unity flow and output location.
+- [x] Verify that release files do not include caches, logs, local databases, secrets, or agent-only generated noise.
+- [x] Run the available lightweight checks, then record any Unity Editor checks that must be run manually.
 
 Risks or dependencies:
 
-- [ ] TODO
+- [x] Unity `.unitypackage` export may require Unity Editor automation or a manual editor step.
+- [x] Package versioning must stay consistent with `Assets/IG/package.json`.
+- [x] Existing project instruction and memory files are agent infrastructure; do not delete or package them unless explicitly selected.
+- [x] EditMode tests require Unity Test Runner rather than a plain shell command.
 
 Verification:
 
-- [ ] TODO
+- [x] `git diff --check`.
+- [x] Validate selected package contents against the exclusion list.
+- [x] Confirm configured Unity version is `2022.3+` and current project version is `2022.3.62f2`.
+- [x] Document EditMode Test Runner as a required manual release check.
+- [x] Define final artifact name, version, and contents before release.
+
+Sprint 3 backlog:
+
+- [x] Add a Unity Editor or batchmode export helper for the documented `.unitypackage` workflow.
+- [x] Choose and document the project-local release output folder.
+- [x] Produce `Dramework4-<package-version>-unity<unity-version>.unitypackage` with the no-Unity fallback packer.
+- [x] Add an artifact inspection script for the include/exclude list.
+- [x] Inspect exported artifact contents against the include/exclude list.
+- [!] Record clean import, editor compilation, and EditMode Test Runner results.
+
+Sprint 3 blocker:
+
+- [!] `.\tools\release\export-unitypackage.ps1` validates the candidate but cannot run Unity Editor export until Unity executable path is available. Pass `-UnityPath` or set `UNITY_EDITOR` / `UNITY_EDITOR_PATH`.
+- [!] The fallback artifact exists at `Builds/UnityPackage/Dramework4-0.1.2-unity2022.3.unitypackage`, but clean Unity import, editor compilation, and EditMode Test Runner are still required before final release.
