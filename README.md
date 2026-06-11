@@ -166,11 +166,37 @@ if (response.Success)
 }
 ```
 
+#### Addressables
+
+Dramework4 включает helper API поверх Unity Addressables:
+
+- `DW4.AddressablesTools.LoadAssetAsync<T>(key, onProgress, onFailed,
+  cancellationToken)` - async-загрузка одного asset по address/key.
+- `DW4.AddressablesTools.LoadAssetsAsync<T>(key, onProgress, onFailed,
+  cancellationToken)` - async-загрузка набора assets по address/key/label.
+- Extension methods на `string`: `"address".LoadAssetAsync<T>()` и
+  `"label".LoadAssetsAsync<T>()`.
+- Progress callback получает значения от `0` до `1`.
+- Failed callback получает `Exception` из Addressables operation.
+- В editor есть `DW4.AddressablesTools.GroupNames` для получения имен
+  Addressables groups из `AddressableAssetSettings`.
+
+Пример:
+
+```csharp
+var prefab = await DW4.AddressablesTools.LoadAssetAsync<GameObject>(
+    "ui/window_inventory",
+    progress => DW4.Log($"Loading: {progress:P0}"),
+    exception => DW4.LogException(exception),
+    cancellationToken);
+
+var icons = await "icons_items".LoadAssetsAsync<Sprite>();
+```
+
 #### Helper tools
 
 Статический фасад `DW4` группирует утилиты:
 
-- async loading helpers для Addressables;
 - collection helpers для random items, shuffle и insertion sort;
 - IO helpers для очистки директорий, file attributes и relative paths;
 - math helpers для distance/rotation comparisons;
@@ -246,18 +272,6 @@ Runtime assembly в текущем проекте также ссылается 
 
 Перед импортом или компиляцией Dramework4 убедитесь, что эти зависимости
 доступны в consuming Unity project.
-
-### Development
-
-Откройте root репозитория как Unity project. Unity восстановит `Packages/` из
-`Packages/manifest.json`.
-
-Unity/IDE generated files вроде `Library/`, `Temp/`, `UserSettings/`,
-`*.csproj` и `*.sln` игнорируются.
-
-Для проверки обычно достаточно editor compilation и EditMode tests. Это
-package/framework, поэтому standalone player build обычно определяется
-проектом-потребителем, а не самим Dramework4.
 
 ## English
 
@@ -424,11 +438,37 @@ if (response.Success)
 }
 ```
 
+#### Addressables
+
+Dramework4 includes helper APIs on top of Unity Addressables:
+
+- `DW4.AddressablesTools.LoadAssetAsync<T>(key, onProgress, onFailed,
+  cancellationToken)` - async-loads one asset by address/key.
+- `DW4.AddressablesTools.LoadAssetsAsync<T>(key, onProgress, onFailed,
+  cancellationToken)` - async-loads a set of assets by address/key/label.
+- Extension methods on `string`: `"address".LoadAssetAsync<T>()` and
+  `"label".LoadAssetsAsync<T>()`.
+- The progress callback receives values from `0` to `1`.
+- The failed callback receives the `Exception` from the Addressables operation.
+- In editor code, `DW4.AddressablesTools.GroupNames` exposes Addressables group
+  names from `AddressableAssetSettings`.
+
+Example:
+
+```csharp
+var prefab = await DW4.AddressablesTools.LoadAssetAsync<GameObject>(
+    "ui/window_inventory",
+    progress => DW4.Log($"Loading: {progress:P0}"),
+    exception => DW4.LogException(exception),
+    cancellationToken);
+
+var icons = await "icons_items".LoadAssetsAsync<Sprite>();
+```
+
 #### Helper Tools
 
 The `DW4` static facade groups common helpers:
 
-- Addressables async loading helpers.
 - Collection helpers for random items, shuffling, and insertion sort.
 - IO helpers for directory cleanup, file attributes, and relative paths.
 - Math helpers for distance and rotation comparisons.
@@ -505,15 +545,3 @@ project:
 
 Make sure these dependencies are available in the consuming Unity project before
 importing or compiling Dramework4.
-
-### Development
-
-Open the repository root as a Unity project. Unity restores `Packages/` from
-`Packages/manifest.json`.
-
-Generated Unity and IDE files such as `Library/`, `Temp/`, `UserSettings/`,
-`*.csproj`, and `*.sln` are ignored.
-
-For validation, prefer editor compilation and EditMode tests. This repository is
-a package/framework, so a standalone player build is usually defined by a
-consuming project rather than by Dramework4 itself.
