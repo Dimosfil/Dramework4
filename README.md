@@ -1,6 +1,4 @@
-<img src="docs/images/dramework4-logo-light.png" alt="Dramework4" width="256">
-
-# Dramework4
+<img src="docs/images/dramework4-logo-dark.png" alt="Dramework4" width="100%">
 
 Dramework4 - runtime-фреймворк/пакет для Unity проектов HappyCoder и Indie
 Games Project. Он рассчитан на Unity `2022.3+`, включая актуальные версии
