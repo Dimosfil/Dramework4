@@ -255,6 +255,19 @@ Extension methods дублируют часть helpers для `Component`, `Tra
 Editor-зависимые части защищены editor-only API или `#if UNITY_EDITOR`, поэтому
 они не должны попадать в runtime player build.
 
+#### Скриншоты
+
+Инструменты Dramework4 рассчитаны на рабочий Unity inspector flow: branded
+headers, Odin-drawn editors, списки сцены и компактную навигацию по коду.
+
+![Waypoints controller inspector](docs/images/inspector-waypoints-controller.jpg)
+
+![Odin Visual Designer and control points inspector](docs/images/odin-visual-designer-control-points.jpg)
+
+![Folded code sections](docs/images/code-folded-sections.jpg)
+
+![Injected dispatcher fields](docs/images/code-injected-fields.jpg)
+
 ### Testing
 
 `DWTestContainer` - lightweight DI container для EditMode-тестов. Он умеет
@@ -561,6 +574,19 @@ scenes ready for the runtime framework:
 
 Editor-dependent pieces are guarded by editor-only APIs or `#if UNITY_EDITOR`,
 so they should not be included in runtime player builds.
+
+##### Screenshots
+
+Dramework4 tooling is designed around the day-to-day Unity inspector flow:
+branded headers, Odin-drawn editors, scene lists, and compact code navigation.
+
+![Waypoints controller inspector](docs/images/inspector-waypoints-controller.jpg)
+
+![Odin Visual Designer and control points inspector](docs/images/odin-visual-designer-control-points.jpg)
+
+![Folded code sections](docs/images/code-folded-sections.jpg)
+
+![Injected dispatcher fields](docs/images/code-injected-fields.jpg)
 
 #### Testing
 
