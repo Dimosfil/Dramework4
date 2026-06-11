@@ -84,7 +84,7 @@ namespace IG.HappyCoder.Plugins.Dramework4.Runtime.Core
                     var obj = pausables[i];
                     obj.Object.OnPause();
 
-                    if (DW4.AppConfig.LogDispatcher == false) return;
+                    if (DW4.AppConfig.LogDispatcher == false) continue;
 
                     DW4.Log(string.IsNullOrEmpty(obj.ID)
                         ? $"{TAG} Pause object type of \"{obj.Type}\". Order: {obj.Order}"
@@ -105,7 +105,7 @@ namespace IG.HappyCoder.Plugins.Dramework4.Runtime.Core
                     var obj = pausables[i];
                     obj.Object.OnResume();
 
-                    if (DW4.AppConfig.LogDispatcher == false) return;
+                    if (DW4.AppConfig.LogDispatcher == false) continue;
 
                     DW4.Log(string.IsNullOrEmpty(obj.ID)
                         ? $"{TAG} Resume object type of \"{obj.Type}\". Order: {obj.Order}"

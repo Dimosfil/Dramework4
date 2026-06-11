@@ -25,46 +25,71 @@ namespace IG.HappyCoder.Plugins.Dramework4.Runtime.Tools
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static StorageResponse<T> Load<T>(StorageDataConfig config)
         {
-            if (config.StorageType == StorageType.PlayerPrefs)
-                return PlayerPrefsProvider.Load<T>(config);
-
-            if (config.StorageType == StorageType.File)
-                return FileProvider.Load<T>(config);
-
-            throw new Exception($"Unknown storage type. Type: {config.StorageType}");
+            switch (config.StorageType)
+            {
+                case StorageType.PlayerPrefs:
+                    return PlayerPrefsProvider.Load<T>(config);
+                case StorageType.File:
+                    return FileProvider.Load<T>(config);
+                default:
+                    throw UnknownStorageType(config.StorageType);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async UniTask<StorageResponse<T>> LoadAsync<T>(StorageDataConfig config, Action<float> onProgress)
         {
-            if (config.StorageType == StorageType.PlayerPrefs)
-                return await PlayerPrefsProvider.LoadAsync<T>(config);
-
-            if (config.StorageType == StorageType.File)
-                return await FileProvider.LoadAsync<T>(config);
-
-            if (config.StorageType == StorageType.Remote)
-                return await RemoteProvider.LoadAsync<T>(config, onProgress);
-
-            throw new Exception($"Unknown storage type. Type: {config.StorageType}");
+            switch (config.StorageType)
+            {
+                case StorageType.PlayerPrefs:
+                    return await PlayerPrefsProvider.LoadAsync<T>(config);
+                case StorageType.File:
+                    return await FileProvider.LoadAsync<T>(config);
+                case StorageType.Remote:
+                    return await RemoteProvider.LoadAsync<T>(config, onProgress);
+                default:
+                    throw UnknownStorageType(config.StorageType);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Save<T>(T data, StorageDataConfig config)
         {
-            if (config.StorageType == StorageType.PlayerPrefs)
-                PlayerPrefsProvider.Save(data, config);
-            else if (config.StorageType == StorageType.File)
-                FileProvider.Save(data, config);
+            switch (config.StorageType)
+            {
+                case StorageType.PlayerPrefs:
+                    PlayerPrefsProvider.Save(data, config);
+                    break;
+                case StorageType.File:
+                    FileProvider.Save(data, config);
+                    break;
+                default:
+                    throw UnknownStorageType(config.StorageType);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async UniTask SaveAsync<T>(T data, StorageDataConfig config, Action<float> onProgress = null)
         {
-            if (config.StorageType == StorageType.PlayerPrefs)
-                await PlayerPrefsProvider.SaveAsync(data, config);
-            else if (config.StorageType.HasFlag(StorageType.File))
-                await FileProvider.SaveAsync(data, config);
+            _ = onProgress;
+
+            switch (config.StorageType)
+            {
+                case StorageType.PlayerPrefs:
+                    await PlayerPrefsProvider.SaveAsync(data, config);
+                    break;
+                case StorageType.File:
+                    await FileProvider.SaveAsync(data, config);
+                    break;
+                default:
+                    throw UnknownStorageType(config.StorageType);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static ArgumentOutOfRangeException UnknownStorageType(StorageType storageType)
+        {
+            return new ArgumentOutOfRangeException(nameof(storageType), storageType, $"Unknown storage type. Type: {storageType}");
         }
 
         #endregion

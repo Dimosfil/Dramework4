@@ -17,7 +17,9 @@ using IG.HappyCoder.Plugins.Dramework4.Runtime.Tools;
 using Unity.Burst;
 using Unity.IL2CPP.CompilerServices;
 
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 using UnityEngine;
 using UnityEngine.SceneManagement;

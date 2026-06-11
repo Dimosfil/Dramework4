@@ -14,6 +14,25 @@ generated outputs, secrets, credentials, or private production data.
 
 ## Tasks
 
+### Refactor Dramework4 runtime package
+
+Goal: improve maintainability of the runtime package while preserving public
+behavior for existing Unity projects.
+
+Plan:
+
+- [x] Create scoped refactor plan in `tools/project-memory/refactor-plan.md`.
+- [x] Choose the first implementation slice.
+- [x] Add or update safety-net EditMode tests for the selected slice.
+- [x] Apply small behavior-preserving refactors.
+- [~] Verify with lightweight checks and Unity EditMode tests when available.
+
+Risks or dependencies:
+
+- [!] Unity EditMode tests require Unity Test Runner.
+- [x] Broad public API renames are out of scope unless explicitly approved.
+- [!] Runtime/editor assembly boundaries must be preserved.
+
 ### Make README bilingual
 
 Goal: mirror the framework capability documentation in Russian and English.

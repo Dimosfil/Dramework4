@@ -48,7 +48,6 @@ namespace IG.HappyCoder.Plugins.Dramework4.Runtime.Core
                    || assembly.FullName.StartsWith("Anonymously Hosted DynamicMethods Assembly")
                    || assembly.FullName.StartsWith("ExCSS")
                    || assembly.FullName.StartsWith("JetBrains")
-                   || assembly.FullName.StartsWith("ExCSS")
                    || assembly.FullName.StartsWith("Newtonsoft");
         }
 
