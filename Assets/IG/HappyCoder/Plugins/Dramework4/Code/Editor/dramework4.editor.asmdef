@@ -1,0 +1,16 @@
+{
+    "name": "dramework4.editor",
+    "rootNamespace": "",
+    "references": ["GUID:e93bc2e34da9bc34581c3d4388c363f3"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

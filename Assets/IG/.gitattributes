@@ -1,0 +1,180 @@
+# Git LFS tracking file types
+
+# Image
+*.[bB][mM][pP] filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][gG] filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][eE][gG] filter=lfs diff=lfs merge=lfs -text
+*.[pP][nN][gG] filter=lfs diff=lfs merge=lfs -text
+*.[gG][iI][fF] filter=lfs diff=lfs merge=lfs -text
+*.[pP][sS][dD] filter=lfs diff=lfs merge=lfs -text
+*.[aA][iI] filter=lfs diff=lfs merge=lfs -text
+*.[tT][iI][fF] filter=lfs diff=lfs merge=lfs -text
+*.[tT][iI][fF][fF] filter=lfs diff=lfs merge=lfs -text
+*.[tT][gG][aA] filter=lfs diff=lfs merge=lfs -text
+*.[rR][aA][wW] filter=lfs diff=lfs merge=lfs -text
+
+# Audio
+*.[mM][pP]3 filter=lfs diff=lfs merge=lfs -text
+*.[wW][aA][vV] filter=lfs diff=lfs merge=lfs -text
+*.[oO][gG][gG] filter=lfs diff=lfs merge=lfs -text
+*.[fF][lL][aA][cC] filter=lfs diff=lfs merge=lfs -text
+
+#Wwise
+*.[bB][nN][kK] filter=lfs diff=lfs merge=lfs -text
+*.[wW][eE][mM] filter=lfs diff=lfs merge=lfs -text
+
+# Video
+*.[mM][pP]4 filter=lfs diff=lfs merge=lfs -text
+*.[mM][oO][vV] filter=lfs diff=lfs merge=lfs -text
+
+# 3D
+*.[fF][bB][xX] filter=lfs diff=lfs merge=lfs -text
+*.[fF][bB][xX].[bB][aA][kK] filter=lfs diff=lfs merge=lfs -text
+*.[bB][lL][eE][nN][dD] filter=lfs diff=lfs merge=lfs -text
+*.[oO][bB][jJ] filter=lfs diff=lfs merge=lfs -text
+*.[sS][kK][pP] filter=lfs diff=lfs merge=lfs -text
+
+# Font
+*.[oO][tT][fF] filter=lfs diff=lfs merge=lfs -text
+*.[tT][tT][fF] filter=lfs diff=lfs merge=lfs -text
+
+# etc
+*.[aA] filter=lfs diff=lfs merge=lfs -text
+*.[eE][xX][rR] filter=lfs diff=lfs merge=lfs -text
+*.[pP][dD][fF] filter=lfs diff=lfs merge=lfs -text
+*.[zZ][iI][pP] filter=lfs diff=lfs merge=lfs -text
+*.[rR][aA][rR] filter=lfs diff=lfs merge=lfs -text
+*.7[zZ] filter=lfs diff=lfs merge=lfs -text
+*.[tT[aA][rR].[gG][zZ] filter=lfs diff=lfs merge=lfs -text
+*.[dD][lL][lL] filter=lfs diff=lfs merge=lfs -text
+*.[eE][xX][eE] filter=lfs diff=lfs merge=lfs -text
+*.[uU][nN][iI][tT][yY][pP][aA][cC][kK][aA][gG][eE] filter=lfs diff=lfs merge=lfs -text
+*.[aA][iI][fF] filter=lfs diff=lfs merge=lfs -text
+*.[rR][nN][sS] filter=lfs diff=lfs merge=lfs -text
+*.[rR][eE][aA][sS][oO][nN] filter=lfs diff=lfs merge=lfs -text
+*.[lL][xX][oO] filter=lfs diff=lfs merge=lfs -text
+*.[sS][pP][mM] filter=lfs diff=lfs merge=lfs -text
+*.[rR]16 filter=lfs diff=lfs merge=lfs -text
+*.[rR]32 filter=lfs diff=lfs merge=lfs -text
+*.[hH][dD][rR] filter=lfs diff=lfs merge=lfs -text
+*.[mM][eE][mM][sS][nN][aA][pP]3 filter=lfs diff=lfs merge=lfs -text
+
+#EOL
+# Apply native OS line-endings on checkout of these files...
+*.[bB][oO][oO] text
+*.[cC] text
+*.[cC][gG][iI][nN][cC] text
+*.[cC][oO][nN][fF][iI][gG] text
+*.[cC][oO][nN][tT][eE][nN][tT][pP][rR][oO][jJ] text
+*.[cC][pP][pP] text
+*.[dD][aA][eE] text
+*.[dD][tT][dD] text
+*.[fF][xX] text
+*.[gG][lL][sS][lL] text
+*.[hH] text
+*.[iI][nN][cC] text
+*.[iI][nN][iI] text
+*.[jJ][sS] text
+*.[jJ][sS][fF][lL] text
+*.[jJ][sS][oO][nN] text
+*.[lL][oO][gG] text
+*.[mM][dD] text
+*.[mM][eE][lL] text
+*.[pP][hH][pP] text
+*.[sS][hH][aA][dD][eE][rR] text
+*.[tT][xX][tT] text
+*.[xX][aA][mM][lL] text
+*.[xX][mM][lL] text
+*.[xX][sS][dD] text
+.[gG][iI][tT][aA][tT][tT][rR][iI][bB][uU][tT][eE][sS] text
+.[gG][iI][tT][iI][gG][nN][oO][rR][eE] text
+[cC][oO][pP][yY][iI][nN][gG] text
+[iI][nN][sS][tT][aA][lL][lL]* text
+[kK][eE][yY][sS]* text
+[lL][iI][cC][eE][nN][sS][eE]* text
+[nN][eE][wW][sS]* text
+[nN][oO][tT][iI][cC][eE]* text
+[rR][eE][aA][dD][mM][eE]* text
+[tT][oO][dD][oO]* text
+[wW][hH][aA][tT][sS][nN][eE][wW]* text
+
+# Apply Unix-style LF line-endings on checkout of these files...
+*.[mM][eE][tT][aA] text eol=lf
+*.[sS][hH] text eol=lf
+*.[vV][sS][pP][sS][cC][cC] text eol=lf
+.[hH][tT][aA][cC][cC][eE][sS][sS] text eol=lf
+
+# Previous "binary"
+*.[uU][nN][iI][tT][yY] text eol=lf
+*.[aA][sS][sS][eE][tT] text eol=lf
+*.[pP][rR][eR][fF][aA][bB] text eol=lf
+
+# Apply Windows/DOS-style CR-LF line-endings on checkout of these files...
+*.[bB][aA][tT] text eol=crlf
+*.[cC][mM][dD] text eol=crlf
+*.[cC][sS][pP][rR][oO][jJ] text eol=crlf
+*.[sS][lL][nN] text eol=crlf
+*.[uU][sS][eE][rR] text eol=crlf
+*.[vV][cC][pP][rR][oO][jJ] text eol=crlf
+*.[cC][sS] text eol=crlf
+*.[cC][sS][sS] text eol=crlf
+*.[hH][tT][mM] text eol=crlf
+*.[hH][tT][mM][lL] text eol=crlf
+
+# No end-of-line conversions are applied (i.e., "-text -diff") to these files...
+*.7[zZ] binary
+*.[aA][iI] binary
+*.[aA][nN][iI][mM] binary
+*.[aA][pP][kK] binary
+*.[bB][iI][nN] binary
+*.[bB][mM][pP] binary
+*.[cC][oO][mM] binary
+*.[cC][oO][nN][tT][rR][oO][lL][lL][eE][rR] binary
+*.[cC][uU][bB][eE][mM][aA][pP] binary
+*.[dD][eE][xX] binary
+*.[dD][lL][lL] binary
+*.[dD][yY][lL][iI][bB] binary
+*.[eE][pP][sS] binary
+*.[eE][xX][eE] binary
+*.[eE][xX][rR] binary
+*.[fF][bB][xX] binary
+*.[fF][lL][aA] binary
+*.[fF][lL][aA][rR][eE] binary
+*.[fF][lL][vV] binary
+*.[gG][iI][fF] binary
+*.[gG][uU][iI][sS][kK][iI][nN] binary
+*.[gG][zZ] binary
+*.[hH][tT] binary
+*.[iI][cC][oO] binary
+*.[jJ][pP][eE][gG] binary
+*.[jJ][pP][gG] binary
+*.[kK][eE][yY][sS][tT][oO][rR][eE] binary
+*.[mM][aA][sS][kK] binary
+*.[mM][aA][tT] binary
+*.[mM][bB] binary
+*.[mM][pP]3 binary
+*.[mM][pP]4 binary
+*.[mM][pP][gG] binary
+*.[oO][gG][gG] binary
+*.[pP][cC][xX] binary
+*.[pP][dD][bB] binary
+*.[pP][dD][fF] binary
+*.[pP][hH][yY][sS][iI][cC][mM][aA][tT][eE][rR][iI][aA][lL] binary
+*.[pP][nN][gG] binary
+*.[pP][sS] binary
+*.[pP][sS][dD] binary
+*.[qQ][tT] binary
+*.[sS][oO][bB][iI][nN][aA][rR][yY] binary
+*.[sS][wW][fF] binary
+*.[tT][gG][aA] binary
+*.[tT][iI][fF] binary
+*.[tT][iI][fF][fF] binary
+*.[tT][tT][fF] binary
+*.[uU][nN][iI][tT][yY][pP][aA][cC][kK][aA][gG][eE] binary
+*.[wW][aA][vV] binary
+*.[wW][mM][vV] binary
+*.[zZ][iI][pP] binary
+*.meta -whitespace
+HappyCoder/Plugins/UniTask/** -whitespace
+HappyCoder/Plugins/MemoryPack/** -whitespace
+.gitattributes -whitespace

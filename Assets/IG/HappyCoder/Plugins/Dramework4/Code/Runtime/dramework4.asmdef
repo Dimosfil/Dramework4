@@ -1,0 +1,22 @@
+{
+    "name": "dramework4",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Addressables.Editor",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "Unity.IL2CPP",
+        "Unity.Burst",
+        "UniTask",
+        "MemoryPack.Unity"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

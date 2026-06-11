@@ -1,0 +1,36 @@
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
+
+namespace IG.HappyCoder.Plugins.Dramework4.Runtime.Attributes.Initialization
+{
+    [AttributeUsage(AttributeTargets.Class)]
+    [SuppressMessage("ReSharper", "UnusedType.Global")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+    public class InitializeOrderAttribute : Attribute
+    {
+        #region ================================ FIELDS
+
+        private readonly int _order;
+        private readonly int _offset;
+
+        #endregion
+
+        #region ================================ CONSTRUCTORS AND DESTRUCTOR
+
+        public InitializeOrderAttribute(int order, int offset = 0)
+        {
+            _order = order;
+            _offset = offset;
+        }
+
+        #endregion
+
+        #region ================================ PROPERTIES AND INDEXERS
+
+        public int Order => _order + _offset;
+
+        #endregion
+    }
+}

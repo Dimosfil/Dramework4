@@ -1,0 +1,50 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Unity generated files
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+
+# Rider / ReSharper / Visual Studio
+.idea/
+.vs/
+*.DotSettings.user
+*.csproj.DotSettings
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Unity crash/debug output
+crashlytics-build.properties
+
+# Local AI-agent generated data
+/tools/project-memory/project_memory.sqlite
+/tools/project-memory/*.sqlite
+/tools/project-memory/*.sqlite3
+/tools/project-memory/instruction-updates/
+/agent-work/
