@@ -1,27 +1,33 @@
 # Dramework4
 
-## Русский
-
 Dramework4 - runtime-фреймворк/пакет для Unity проектов HappyCoder и Indie
 Games Project. Он рассчитан на Unity `2022.3+`, включая актуальные версии
 Unity 6. Фреймворк добавляет поверх Unity-сцен прикладной слой:
-dependency injection, управляемый жизненный цикл, messaging, storage/config
-helpers, editor-инструменты и поддержку EditMode-тестов.
+dependency injection, управляемый жизненный цикл, messaging, Addressables
+helpers, storage/config helpers, editor-инструменты и поддержку EditMode-тестов.
 
-### Пакет
+## Get Started
 
-- Manifest пакета: `Assets/IG/package.json`
-- Package name: `ru.indiega.happycoder.dramework4`
-- Version: `0.1.2`
-- Unity version: `2022.3+`; пакет можно разворачивать на более новых версиях,
-  включая Unity 6
-- Runtime assembly: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime/dramework4.asmdef`
-- Runtime source: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime`
-- EditMode tests: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Tests/EditMode`
+1. Подключите Dramework4 как Unity package. Для локальной установки откройте
+   `Window > Package Manager > Add package from disk...` и выберите
+   `Assets/IG/package.json`. Для установки из репозитория можно добавить git URL
+   пакета в Package Manager.
+2. Убедитесь, что зависимости из раздела `Зависимости` доступны в проекте.
+3. После импорта editor initializer создаст служебные папки Dramework4 и
+   `App Config` asset в Resources.
+4. Добавьте на сцену `SceneContainer`, если сцене нужен DI/lifecycle flow.
+   В inspector нажмите `Refresh`, чтобы контейнер нашел `DBehaviour` и
+   компоненты с `[Bind]`.
+5. Помечайте runtime-сервисы через `[Bind]` или `[Create(sceneName, order)]`,
+   а зависимости внедряйте через `[Inject]`.
+6. Реализуйте нужные lifecycle interfaces, например `IInitializable`,
+   `IStartable` или `IUpdatable`. Порядок вызовов задавайте order-атрибутами.
+7. Для событий используйте `DWSignal`/`DWSignalAsync`, для request/response -
+   `DWRequest`, для загрузки Addressables - `DW4.AddressablesTools`.
 
-### Основной функционал
+## Основной функционал
 
-#### Dependency Injection
+### Dependency Injection
 
 Фреймворк использует атрибуты и scene containers для регистрации и внедрения
 объектов. В runtime этим управляет `Dispatcher`, а для EditMode-тестов есть
@@ -56,7 +62,7 @@ public sealed class WalletPresenter
 }
 ```
 
-#### Сцены и жизненный цикл
+### Сцены и жизненный цикл
 
 `Dispatcher` создается автоматически до загрузки сцены. Он регистрирует
 `SceneContainer`, создает объекты по атрибутам, внедряет зависимости и запускает
@@ -101,7 +107,7 @@ Lifecycle-интерфейсы:
 `DBehaviour` объекты и список компонентов, которые нужно привязать к
 контейнеру сцены.
 
-#### Messaging
+### Messaging
 
 В Dramework4 есть три статических messaging API:
 
@@ -121,7 +127,7 @@ DWSignal.Fire("coins_changed", 25);
 DWSignal.Unsubscribe<int>("coins_changed", OnCoinsChanged);
 ```
 
-#### Storage и config data
+### Storage и config data
 
 Storage настраивается через `StorageDataConfig` и доступен через `DW4.Load`,
 `DW4.LoadAsync`, `DW4.Save` и `DW4.SaveAsync`.
@@ -166,7 +172,7 @@ if (response.Success)
 }
 ```
 
-#### Addressables
+### Addressables
 
 Dramework4 включает helper API поверх Unity Addressables:
 
@@ -193,7 +199,7 @@ var prefab = await DW4.AddressablesTools.LoadAssetAsync<GameObject>(
 var icons = await "icons_items".LoadAssetsAsync<Sprite>();
 ```
 
-#### Helper tools
+### Helper tools
 
 Статический фасад `DW4` группирует утилиты:
 
@@ -211,7 +217,7 @@ var icons = await "icons_items".LoadAssetsAsync<Sprite>();
 Extension methods дублируют часть helpers для `Component`, `Transform`,
 `Vector3`, `Quaternion`, strings, arrays и lists.
 
-#### Базовые Unity-типы и binders
+### Базовые Unity-типы и binders
 
 - `DBehaviour` - базовый framework `MonoBehaviour`.
 - `DScriptableObject` - базовый framework `ScriptableObject` с editor save
@@ -221,19 +227,35 @@ Extension methods дублируют часть helpers для `Component`, `Tra
 - Component lookup attributes: `[GetComponent]`, `[GetComponentInChildren]`,
   `[GetComponentInParent]`, `[GetComponentOnScene]`.
 
-#### Editor utilities
+### Editor utilities
 
-В runtime-папке также есть editor-only helpers:
+В пакете есть editor-only инструменты, которые помогают держать проектную
+структуру и Unity-сцены в рабочем состоянии:
 
-- initializer и generator utilities;
-- tooling для scene container;
-- prefab tools;
-- addressables/editor asset lookup helpers;
-- helper component `AnimatorTester`.
+- `Initializer` автоматически создает служебные папки Dramework4, создает
+  `App Config` asset в Resources и подписывается на смену Play Mode state.
+- `[SetOnPlayModeStateChanged]` используется editor initializer'ом для сброса
+  static fields/properties при смене Play Mode state, что полезно при
+  отключенном domain reload.
+- `Generators` создает папку `Generated`, `_generated.asmdef` и обновляет
+  generated identifiers для runtime-кода.
+- `SceneContainer` в editor-режиме умеет `Refresh`: сканирует сцену, собирает
+  все `DBehaviour` и компоненты с `[Bind]`, которые потом использует runtime
+  dispatcher.
+- `PrefabTools` добавляет меню `GameObject/Happy Coder/Editor Tools/Prefabs`
+  для `Unpack Prefab`, `Save Prefab`, `Export Prefab` и `Export Prefab As`.
+  Также поддерживается быстрый pack/unpack через hierarchy interaction.
+- `DW4.EditorTools` помогает искать и загружать assets через `AssetDatabase`
+  по типу, имени и default paths.
+- `DW4.AddressablesTools.GroupNames` возвращает имена Addressables groups из
+  editor settings.
+- `AnimatorTester` - inspector helper для просмотра clips из `Animator`,
+  переключения loop flag и быстрого запуска/остановки animation clips.
 
-Editor-зависимые части защищены editor-only API или `#if UNITY_EDITOR`.
+Editor-зависимые части защищены editor-only API или `#if UNITY_EDITOR`, поэтому
+они не должны попадать в runtime player build.
 
-#### Testing
+### Testing
 
 `DWTestContainer` - lightweight DI container для EditMode-тестов. Он умеет
 bind instance/implementation, resolve/create объекты, inject private fields и
@@ -252,7 +274,7 @@ Assets/IG/HappyCoder/Plugins/Dramework4/Code/Tests/EditMode
 Window > General > Test Runner > EditMode > Run All
 ```
 
-### Зависимости
+## Зависимости
 
 `Assets/IG/package.json` объявляет:
 
@@ -273,24 +295,43 @@ Runtime assembly в текущем проекте также ссылается 
 Перед импортом или компиляцией Dramework4 убедитесь, что эти зависимости
 доступны в consuming Unity project.
 
+## Пакет
+
+- Manifest пакета: `Assets/IG/package.json`
+- Package name: `ru.indiega.happycoder.dramework4`
+- Version: `0.1.2`
+- Unity version: `2022.3+`; пакет можно разворачивать на более новых версиях,
+  включая Unity 6
+- Runtime assembly: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime/dramework4.asmdef`
+- Runtime source: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime`
+- EditMode tests: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Tests/EditMode`
+
 ## English
 
 Dramework4 is a Unity runtime framework/package for HappyCoder and Indie Games
 Project Unity projects. It targets Unity `2022.3+`, including current Unity 6
 versions, and provides a small application layer around Unity scenes: dependency
-injection, ordered lifecycle orchestration, messaging, storage/config helpers,
-editor tooling, and EditMode test utilities.
+injection, ordered lifecycle orchestration, messaging, Addressables helpers,
+storage/config helpers, editor tooling, and EditMode test utilities.
 
-### Package
+### Get Started
 
-- Package manifest: `Assets/IG/package.json`
-- Package name: `ru.indiega.happycoder.dramework4`
-- Version: `0.1.2`
-- Unity version: `2022.3+`; the package can be deployed on newer versions,
-  including Unity 6
-- Runtime assembly: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime/dramework4.asmdef`
-- Runtime source: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime`
-- EditMode tests: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Tests/EditMode`
+1. Add Dramework4 as a Unity package. For a local install, open
+   `Window > Package Manager > Add package from disk...` and select
+   `Assets/IG/package.json`. For repository-based installs, add the package git
+   URL in Package Manager.
+2. Make sure the dependencies listed in `Dependencies` are available.
+3. After import, the editor initializer creates Dramework4 service folders and
+   the `App Config` asset in Resources.
+4. Add `SceneContainer` to a scene when that scene needs the DI/lifecycle flow.
+   Press `Refresh` in the inspector so the container can find `DBehaviour`
+   instances and `[Bind]` components.
+5. Mark runtime services with `[Bind]` or `[Create(sceneName, order)]`, then
+   inject dependencies with `[Inject]`.
+6. Implement the lifecycle interfaces you need, such as `IInitializable`,
+   `IStartable`, or `IUpdatable`. Use order attributes to control call order.
+7. Use `DWSignal`/`DWSignalAsync` for events, `DWRequest` for request/response,
+   and `DW4.AddressablesTools` for Addressables loading.
 
 ### Main Capabilities
 
@@ -495,15 +536,31 @@ Extension methods mirror selected helpers for `Component`, `Transform`,
 
 #### Editor Utilities
 
-The runtime folder also includes editor-only helpers:
+The package includes editor-only tools for keeping project structure and Unity
+scenes ready for the runtime framework:
 
-- initializer and generator utilities;
-- scene container editor tooling;
-- prefab tools;
-- addressables/editor asset lookup helpers;
-- an `AnimatorTester` helper component.
+- `Initializer` creates Dramework4 service folders, creates the `App Config`
+  asset in Resources, and subscribes to Play Mode state changes.
+- `[SetOnPlayModeStateChanged]` is used by the editor initializer to reset
+  static fields/properties on Play Mode state changes, which is useful when
+  domain reload is disabled.
+- `Generators` creates the `Generated` folder, `_generated.asmdef`, and updates
+  generated identifiers for runtime code.
+- `SceneContainer` has an editor `Refresh` flow: it scans the scene, collects
+  all `DBehaviour` instances, and finds `[Bind]` components for the runtime
+  dispatcher.
+- `PrefabTools` adds the `GameObject/Happy Coder/Editor Tools/Prefabs` menu for
+  `Unpack Prefab`, `Save Prefab`, `Export Prefab`, and `Export Prefab As`.
+  It also supports quick pack/unpack from hierarchy interaction.
+- `DW4.EditorTools` helps find and load assets through `AssetDatabase` by type,
+  name, and default paths.
+- `DW4.AddressablesTools.GroupNames` exposes Addressables group names from
+  editor settings.
+- `AnimatorTester` is an inspector helper for browsing `Animator` clips,
+  toggling loop flags, and quickly playing/stopping animation clips.
 
-These files are guarded by editor-only APIs or `#if UNITY_EDITOR` where needed.
+Editor-dependent pieces are guarded by editor-only APIs or `#if UNITY_EDITOR`,
+so they should not be included in runtime player builds.
 
 #### Testing
 
@@ -545,3 +602,14 @@ project:
 
 Make sure these dependencies are available in the consuming Unity project before
 importing or compiling Dramework4.
+
+### Package
+
+- Package manifest: `Assets/IG/package.json`
+- Package name: `ru.indiega.happycoder.dramework4`
+- Version: `0.1.2`
+- Unity version: `2022.3+`; the package can be deployed on newer versions,
+  including Unity 6
+- Runtime assembly: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime/dramework4.asmdef`
+- Runtime source: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Runtime`
+- EditMode tests: `Assets/IG/HappyCoder/Plugins/Dramework4/Code/Tests/EditMode`
