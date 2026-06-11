@@ -1,3 +1,5 @@
+<img src="docs/images/dramework4-logo-light.png" alt="Dramework4" width="256">
+
 # Dramework4
 
 Dramework4 - runtime-фреймворк/пакет для Unity проектов HappyCoder и Indie
@@ -8,22 +10,27 @@ helpers, storage/config helpers, editor-инструменты и поддерж
 
 ## Get Started
 
-1. Подключите Dramework4 как Unity package. Для локальной установки откройте
-   `Window > Package Manager > Add package from disk...` и выберите
-   `Assets/IG/package.json`. Для установки из репозитория можно добавить git URL
-   пакета в Package Manager.
-2. Убедитесь, что зависимости из раздела `Зависимости` доступны в проекте.
-3. После импорта editor initializer создаст служебные папки Dramework4 и
+1. Скачайте готовый пакет Dramework4 из GitHub Releases этого репозитория.
+   Обычно это `.unitypackage`, приложенный к последнему release.
+2. Импортируйте пакет в Unity через `Assets > Import Package > Custom Package...`
+   и выберите скачанный файл.
+3. Убедитесь, что зависимости из раздела `Зависимости` доступны в проекте,
+   включая Odin Inspector.
+4. После импорта editor initializer создаст служебные папки Dramework4 и
    `App Config` asset в Resources.
-4. Добавьте на сцену `SceneContainer`, если сцене нужен DI/lifecycle flow.
+5. Добавьте на сцену `SceneContainer`, если сцене нужен DI/lifecycle flow.
    В inspector нажмите `Refresh`, чтобы контейнер нашел `DBehaviour` и
    компоненты с `[Bind]`.
-5. Помечайте runtime-сервисы через `[Bind]` или `[Create(sceneName, order)]`,
+6. Помечайте runtime-сервисы через `[Bind]` или `[Create(sceneName, order)]`,
    а зависимости внедряйте через `[Inject]`.
-6. Реализуйте нужные lifecycle interfaces, например `IInitializable`,
+7. Реализуйте нужные lifecycle interfaces, например `IInitializable`,
    `IStartable` или `IUpdatable`. Порядок вызовов задавайте order-атрибутами.
-7. Для событий используйте `DWSignal`/`DWSignalAsync`, для request/response -
+8. Для событий используйте `DWSignal`/`DWSignalAsync`, для request/response -
    `DWRequest`, для загрузки Addressables - `DW4.AddressablesTools`.
+
+Для локальной разработки пакета можно открыть `Window > Package Manager >
+Add package from disk...` и выбрать `Assets/IG/package.json` из checkout этого
+репозитория.
 
 ## Основной функционал
 
@@ -305,6 +312,27 @@ Runtime assembly в текущем проекте также ссылается 
 - `Unity.IL2CPP`
 - Odin Inspector namespaces (`Sirenix.OdinInspector`, `Sirenix.Utilities`)
 
+### Odin Inspector
+
+Dramework4 использует Odin Inspector как editor-facing dependency. В текущем
+Unity-проекте Odin импортирован как vendored plugin в `Assets/Plugins/Sirenix`,
+а не как UPM-зависимость из `Assets/IG/package.json`.
+
+Интеграция сделана через Odin attributes в runtime/editor partial-классах:
+
+- runtime-типы используют `Sirenix.OdinInspector` для layout-атрибутов,
+  например `[HideMonoScript]`, `[BoxGroup]`, `[ListDrawerSettings]` и
+  `[ReadOnly]`;
+- editor-only partial-файлы под `#if UNITY_EDITOR` добавляют branded inspector
+  header, кнопки `Save`/`Refresh` и inspector actions через `[OnInspectorGUI]`
+  и `[Button]`;
+- `Sirenix.OdinInspector.Attributes.dll` доступен для runtime-компиляции, а
+  editor DLL Odin включены только для Unity Editor.
+
+Если Dramework4 импортируется в другой Unity-проект, Odin Inspector должен быть
+уже установлен там отдельно или добавлен вместе с пакетом как project/plugin
+dependency. Сам `Assets/IG/package.json` Odin не подтягивает.
+
 Перед импортом или компиляцией Dramework4 убедитесь, что эти зависимости
 доступны в consuming Unity project.
 
@@ -329,22 +357,26 @@ storage/config helpers, editor tooling, and EditMode test utilities.
 
 ### Get Started
 
-1. Add Dramework4 as a Unity package. For a local install, open
-   `Window > Package Manager > Add package from disk...` and select
-   `Assets/IG/package.json`. For repository-based installs, add the package git
-   URL in Package Manager.
-2. Make sure the dependencies listed in `Dependencies` are available.
-3. After import, the editor initializer creates Dramework4 service folders and
+1. Download the ready-to-use Dramework4 package from this repository's GitHub
+   Releases. This is typically a `.unitypackage` attached to the latest release.
+2. Import it in Unity through `Assets > Import Package > Custom Package...`,
+   then select the downloaded file.
+3. Make sure the dependencies listed in `Dependencies` are available, including
+   Odin Inspector.
+4. After import, the editor initializer creates Dramework4 service folders and
    the `App Config` asset in Resources.
-4. Add `SceneContainer` to a scene when that scene needs the DI/lifecycle flow.
+5. Add `SceneContainer` to a scene when that scene needs the DI/lifecycle flow.
    Press `Refresh` in the inspector so the container can find `DBehaviour`
    instances and `[Bind]` components.
-5. Mark runtime services with `[Bind]` or `[Create(sceneName, order)]`, then
+6. Mark runtime services with `[Bind]` or `[Create(sceneName, order)]`, then
    inject dependencies with `[Inject]`.
-6. Implement the lifecycle interfaces you need, such as `IInitializable`,
+7. Implement the lifecycle interfaces you need, such as `IInitializable`,
    `IStartable`, or `IUpdatable`. Use order attributes to control call order.
-7. Use `DWSignal`/`DWSignalAsync` for events, `DWRequest` for request/response,
+8. Use `DWSignal`/`DWSignalAsync` for events, `DWRequest` for request/response,
    and `DW4.AddressablesTools` for Addressables loading.
+
+For local package development, open `Window > Package Manager > Add package from
+disk...` and select `Assets/IG/package.json` from this repository checkout.
 
 ### Main Capabilities
 
@@ -625,6 +657,26 @@ project:
 - `Unity.ResourceManager`
 - `Unity.IL2CPP`
 - Odin Inspector namespaces (`Sirenix.OdinInspector`, `Sirenix.Utilities`)
+
+#### Odin Inspector
+
+Dramework4 uses Odin Inspector as an editor-facing dependency. In this Unity
+project, Odin is imported as a vendored plugin under `Assets/Plugins/Sirenix`,
+not as a UPM dependency declared by `Assets/IG/package.json`.
+
+The integration is attribute-driven through runtime/editor partial classes:
+
+- runtime types use `Sirenix.OdinInspector` layout attributes such as
+  `[HideMonoScript]`, `[BoxGroup]`, `[ListDrawerSettings]`, and `[ReadOnly]`;
+- editor-only partial files guarded by `#if UNITY_EDITOR` add the branded
+  inspector header, `Save`/`Refresh` buttons, and inspector actions through
+  `[OnInspectorGUI]` and `[Button]`;
+- `Sirenix.OdinInspector.Attributes.dll` is available for runtime compilation,
+  while Odin editor DLLs are enabled only in the Unity Editor.
+
+When importing Dramework4 into another Unity project, Odin Inspector must already
+be installed there or be included alongside the package as a project/plugin
+dependency. `Assets/IG/package.json` does not pull Odin automatically.
 
 Make sure these dependencies are available in the consuming Unity project before
 importing or compiling Dramework4.
